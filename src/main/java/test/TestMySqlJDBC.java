@@ -19,13 +19,13 @@ public class TestMySqlJDBC {
             //Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conexion = DriverManager.getConnection(url, "root", "root12345");
             Statement instruccion = conexion.createStatement();
-            var sql = "SELECT * FROM persona";
+            var sql = "SELECT * FROM Usuario";
             ResultSet resultado = instruccion.executeQuery(sql);
             while (resultado.next()) {
-                System.out.println("Id Persona = " + resultado.getInt("id_persona"));
-                System.out.println("Nombre Persona = " + resultado.getString("nombre"));
-                System.out.println("Email Persona = " + resultado.getString("email"));
-                System.out.println("Telefono Persona = " + resultado.getString("telefono"));
+                System.out.println("Id Usuario = " + resultado.getInt("id_Usuario"));
+                System.out.println("Nombre Usuario = " + resultado.getString("nombre"));
+                System.out.println("Email Usuario = " + resultado.getString("email"));
+                System.out.println("Telefono Usuario = " + resultado.getString("telefono"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

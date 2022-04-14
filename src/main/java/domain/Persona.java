@@ -11,7 +11,7 @@ package domain;
  */
 public class Persona {
     
-    private int idPersona;
+    private int idUsuario;
     private String name;
     private String apellido;
     private String email;
@@ -20,10 +20,10 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(int idPersona) {
-        this.idPersona = idPersona;
+    public Persona(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
-    
+
     public Persona(String name, String apellido, String email, String telefono) {
         this.name = name;
         this.apellido = apellido;
@@ -31,13 +31,16 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public Persona(int idPersona, String name, String apellido, String email, String telefono) {
-        this.idPersona = idPersona;
+    public Persona(int idUsuario, String name, String apellido, String email, String telefono) {
+        this.idUsuario = idUsuario;
         this.name = name;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
     }
+    
+    
+    
     
     public String getApellido() {
         return apellido;
@@ -47,12 +50,12 @@ public class Persona {
         this.apellido = apellido;
     } 
 
-    public int getIdPersona() {
-        return idPersona;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getName() {
@@ -81,7 +84,9 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "idPersona=" + idPersona + ", name=" + name + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono + '}';
+        return "Persona{" + "idUsuario=" + idUsuario + ", name=" + name + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono + '}';
     }
+
+    
 
 }

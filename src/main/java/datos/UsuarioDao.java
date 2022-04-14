@@ -1,48 +1,49 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package datos;
 
-import static datos.Conexion.*;
-import domain.Persona;
-import java.sql.*;
-import java.util.*;
-
+import static datos.Conexion.close;
+import static datos.Conexion.getConnection;
+import domain.Usuario;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author adseglocdom
+ * @author delga
  */
-public class PersonaDao {
+public class UsuarioDao {
+    
+    private static final String SQL_SELECT = "SELECT * FROM usuario";
+    private static final String SQL_INSERT = "INSERT INTO usuario(usuario, password) VALUES(?,?)";
+    private static final String SQL_UPDATE = "UPDATE usuario SET usuario = ?, password = ? WHERE id_usuario = ?";
+    private static final String SQL_DELETE = "DELETE FROM usuario WHERE id_usuario = ?";
 
-    private static final String SQL_SELECT = "SELECT * FROM persona";
-    private static final String SQL_INSERT = "INSERT INTO persona(nombre, apellido, email, telefono) VALUES(?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE Usuario SET nombre = ?, apellido = ?, email = ?, telefono = ? WHERE id_persona = ?";
-    private static final String SQL_DELETE = "DELETE FROM persona WHERE id_persona = ?";
-
-    public List<Persona> seleccionar() {
+    public List<Usuario> seleccionar() {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Persona Usuario = null;
-        List<Persona> personas = new ArrayList<>();
+        Usuario usuario = null;
+        List<Usuario> usuarios = new ArrayList<>();
 
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int idUsuario = rs.getInt("id_Usuario");
-                String nombre = rs.getString("nombre");
-                String apellido = rs.getString("apellido");
-                String email = rs.getString("email");
-                String telefono = rs.getString("telefono");
+                int idUsuario = rs.getInt("id_usuario");
+                String username = rs.getString("usuario");
+                String password = rs.getString("password");
 
-                Usuario = new Persona(idUsuario, nombre, apellido, email, telefono);
+                usuario = new Usuario(idUsuario,username, password);
 
-                personas.add(Usuario);
+                usuarios.add(usuario);
             }
 
         } catch (SQLException ex) {
@@ -57,20 +58,18 @@ public class PersonaDao {
             }
         }
 
-        return personas;
+        return usuarios;
     }
 
-    public int insertar(Persona persona) {
+    public int insertar(Usuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, persona.getName());
-            stmt.setString(2, persona.getApellido());
-            stmt.setString(3, persona.getEmail());
-            stmt.setString(4, persona.getTelefono());
+            stmt.setString(1, usuario.getUsuario());
+            stmt.setString(2, usuario.getPassword());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -87,18 +86,16 @@ public class PersonaDao {
 
     }
 
-    public int actualizar(Persona persona) {
+    public int actualizar(Usuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, persona.getName());
-            stmt.setString(2, persona.getApellido());
-            stmt.setString(3, persona.getEmail());
-            stmt.setString(4, persona.getTelefono());
-            stmt.setInt(5, persona.getIdUsuario());
+            stmt.setString(1, usuario.getUsuario());
+            stmt.setString(2, usuario.getPassword());
+            stmt.setInt(3, usuario.getIdUsuario());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -115,14 +112,14 @@ public class PersonaDao {
 
     }
     
-    public int eliminar(Persona persona) {
+    public int eliminar(Usuario usuario) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, persona.getIdUsuario());
+            stmt.setInt(1, usuario.getIdUsuario());
             registros = stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
