@@ -1,5 +1,5 @@
-datos/PersonaDao.class
-test/TestManejoPersonas.class
-domain/Persona.class
-test/TestMySqlJDBC.class
-datos/Conexion.class
+domain\Persona.class
+datos\Conexion.class
+datos\PersonaDao.class
+test\TestManejoPersonas.class
+test\TestMySqlJDBC.class
